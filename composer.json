@@ -1,0 +1,19 @@
+{
+    "name": "mickey/travel-app",
+    "autoload": {
+        "psr-4": {
+            "": "./"
+        }
+    },
+    "authors": [
+        {
+            "name": "Mickey",
+            "email": "mohammed.s.hegazi@gmail.com"
+        }
+    ],
+    "require": {
+        "twbs/bootstrap": "^5.3",
+        "ext-pdo": "*",
+        "vlucas/phpdotenv": "^5.5"
+    }
+}
