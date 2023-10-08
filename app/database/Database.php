@@ -24,9 +24,17 @@ class Database
         }
     }
 
-    public static function get(string $table): false|array
+    public static function get(): false|array
     {
-        $query = "SELECT * FROM $table";
+
+        $query = "SELECT DISTINCT trips.trip_id, title, details, location,
+                    (
+                        SELECT GROUP_CONCAT(images.image SEPARATOR ',')
+                        FROM images
+                        WHERE images.trip_id = trips.trip_id
+                    ) AS images
+                    FROM trips
+                    LEFT JOIN images ON trips.trip_id = images.trip_id;";
         $query = self::execute($query);
         return $query->fetchAll();
     }

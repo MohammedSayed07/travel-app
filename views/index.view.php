@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Safrni</title>
 
+    <link href="styles/slideshow.css" rel="stylesheet">
     <link href="styles/trips.css" rel="stylesheet">
     <link href="styles/sidebar.css" rel="stylesheet">
     <link href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -35,28 +36,38 @@
                         <a class="nav-link" href="#">Link</a>
                     </li>
                 </ul>
-                <a class="nav-link" href="#">Login</a>
+                <a class="nav-link" href="/login">Login</a>
             </div>
         </div>
     </nav>
 
-    <div class="sidebar">
-        <div class="sidebar-link" id="sidebar-home">
-            <img src="icons/home.svg">
-            <div>Sidebar</div>
-        </div>
-    </div>
 
-    <div class="trips-card">
+    <div class="container d-inline-block mt-3">
         <?php foreach($data as $item) : ?>
-            <div class="card mb-3" style="max-width: 1000px;">
-                <div class="row g-0">
+            <div class="card mb-3" style="max-width: 1200px;">
+                <div class="row g-0 m-2">
                     <div class="col-md-4">
-                        <img src="images/beach.webp" class="img-fluid rounded-start" alt="...">
+                        <div id="carousel<?=$item['trip_id']?>" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <?php foreach($item['images'] as $image) : ?>
+                                <div class="carousel-item active">
+                                    <img src="<?= $image ?>" class="d-block w-100" alt="...">
+                                </div>
+                                <?php endforeach; ?>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carousel<?=$item['id']?>" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carousel<?=$item['id']?>" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title"><?= $item ?></h5>
+                            <h5 class="card-title"><?= $item['title'] ?></h5>
                             <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
                                 additional content. This content is a little bit longer.</p>
                             <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
@@ -67,6 +78,7 @@
         <?php endforeach; ?>
     </div>
 
+    <script src="javascript/slideshow.js"></script>
     <script src="vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
 
