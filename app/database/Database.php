@@ -24,9 +24,8 @@ class Database
         }
     }
 
-    public static function get(): false|array
+    public static function get(?string $location = null): false|array
     {
-
         $query = "SELECT DISTINCT trips.trip_id, title, details, location,
                     (
                         SELECT GROUP_CONCAT(images.image SEPARATOR ',')
@@ -34,15 +33,22 @@ class Database
                         WHERE images.trip_id = trips.trip_id
                     ) AS images
                     FROM trips
-                    LEFT JOIN images ON trips.trip_id = images.trip_id;";
-        $query = self::execute($query);
+                    LEFT JOIN images ON trips.trip_id = images.trip_id";
+        $params = [];
+
+        if ($location !== null) {
+            $query .= " WHERE location LIKE ?";
+            $params['location'] = '%' . $location . '%';
+        }
+
+        $query = self::execute($query, $params);
         return $query->fetchAll();
     }
 
-    private static function execute(string $query): false|PDOStatement
+    private static function execute(string $query, array $params = []): false|PDOStatement
     {
         $stmt = self::$connection->prepare($query);
-        $stmt->execute();
+        $stmt->execute(array_values($params));
         return $stmt;
     }
 }
