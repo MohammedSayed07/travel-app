@@ -2,6 +2,8 @@
 
 namespace app\core;
 
+use app\ErrorHandler;
+
 class Router
 {
     protected Request $request;
@@ -46,10 +48,15 @@ class Router
     {
         $path = $this->request->getPath();
         $method = $this->request->getMethod();
-        $callback = $this->routes[$method][$path];
+        if (isset($this->routes[$method][$path])) {
+            $callback = $this->routes[$method][$path];
 
-        //the controller is in $callback[0] and the action is in $callback[1]
-        $this->performAction($callback[0], $callback[1]);
+            //the controller is in $callback[0] and the action is in $callback[1]
+            $this->performAction($callback[0], $callback[1]);
+        }
+        else {
+            ErrorHandler::handleErrors(404);
+        }
     }
 
     private function performAction(mixed $controller, string $action): void

@@ -9,9 +9,23 @@
 }
 
 .sidebar {
-    width: 150px;
+    width: 260px;
 }
 
 .content {
     flex-grow: 1;
+}
+
+@media screen and (max-width: 768px) {
+    .wrapper {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .content {
+        flex-grow: 0;
+    }
 }

@@ -2,7 +2,7 @@
 
 namespace app\database;
 
-use Exception;
+use app\ErrorHandler;
 use PDO;
 use PDOException;
 use PDOStatement;
@@ -11,17 +11,19 @@ class Database
 {
     public static PDO $connection;
 
-    public static function makeConnection(array $config): PDOException|PDO|Exception
+    public static function makeConnection(array $config): void
     {
-        $dsn = "mysql:dbname={$config['dbname']};host={$config['host']}";
         try {
+            $dsn = "mysql:dbname={$config['dbname']};host={$config['host']}";
             self::$connection = new PDO($dsn, $config['user'], $config['password'], [
-               PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
             ]);
-            return self::$connection;
         } catch (PDOException $exception) {
-            return $exception;
+            error_log($exception->getMessage());
+            ErrorHandler::handleErrors(500);
+            Throw $exception;
         }
+
     }
 
     public static function get(?string $location = null): false|array

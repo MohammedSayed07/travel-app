@@ -1,8 +1,20 @@
-getTripsFromApi("http://localhost:8888/api/trips");
+getTripsFromApi("http://localhost:8888/api/trips")
+const tripContainer = document.querySelector('#trips-container');
+function getTripsFromApi(url)
+{
+    fetch(url)
+        .then((res)=> {
+            if (res.ok) {
+                return res.json()
+            }
+            throw Error("Network response was not ok")
+        }).then((data)=> {
+            tripContainer.innerHTML = generateTrips(data)
+    }).catch((error)=>{
+        console.log('Error: ' + error)
+    })
+}
 
-const locationCheckBox = document.querySelector('#location-checkbox')
-
-locationCheckBox.addEventListener('click', locationCheck)
 function generateTrips(trips) {
     let data = '';
     for (let trip of trips) {
@@ -60,32 +72,3 @@ function generateTrips(trips) {
 }
 
 
-function getTripsFromApi(url) 
-{
-    fetch(url)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log(data)
-        let html = generateTrips(data);
-
-        const tripContainer = document.querySelector('#trips-container');
-
-        tripContainer.innerHTML = html
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-}
-
-function locationCheck() {
-    if (locationCheckBox.checked) {
-        getTripsFromApi("http://localhost:8888/api/trips?location=elghardga")
-    } else {
-        getTripsFromApi("http://localhost:8888/api/trips")
-    }
-}
