@@ -1,4 +1,36 @@
+.image-container {
+    width: 400px!important;
+    height: 300px;!important;
+    overflow: hidden!important;
+}
 
+.wrapper {
+    display: flex;
+}
 
+.sidebar {
+    width: 260px;
+}
 
+.content {
+    flex-grow: 1;
+}
 
+.content-link {
+    margin-right: 20px;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 768px) {
+    .wrapper {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .content {
+        flex-grow: 0;
+    }
+}

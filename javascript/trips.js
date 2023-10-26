@@ -1,5 +1,11 @@
-getTripsFromApi("http://localhost:8888/api/trips")
+const defaultUrl = "http://localhost:8888/api/trips";
+const currentParams = window.location.search;
 const tripContainer = document.querySelector('#trips-container');
+
+getTripsFromApi(defaultUrl+currentParams);
+
+let filter = {}
+
 function getTripsFromApi(url)
 {
     fetch(url)
@@ -71,4 +77,12 @@ function generateTrips(trips) {
     return data;
 }
 
+function objectToUrlParameters(params)
+{
+    let urlParameters = Object.keys(params).map(function(key){
+        return key + '=' + params[key];
+    }).join("&");
+
+    return urlParameters;
+}
 

@@ -1,31 +1,27 @@
-.image-container {
-    width: 400px!important;
-    height: 300px;!important;
-    overflow: hidden!important;
-}
-
-.wrapper {
-    display: flex;
-}
-
-.sidebar {
-    width: 260px;
-}
-
 .content {
-    flex-grow: 1;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.content-link {
+    margin-right: 20px;
 }
 
 @media screen and (max-width: 768px) {
-    .wrapper {
+    .content {
+
         flex-direction: column;
     }
 
-    .sidebar {
-        width: 100%;
+    .card {
+        width: 20rem;
     }
 
-    .content {
-        flex-grow: 0;
+    .content-link {
+        margin-bottom: 10px;
+        margin-right: 0;
     }
 }

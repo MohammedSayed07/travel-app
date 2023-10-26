@@ -25,12 +25,12 @@ class ErrorHandler
             case 500:
                 renderError("500 Internal Server Error");
                 break;
-
             case 404:
                 renderError("404 PAGE IS NOT FOUND");
                 break;
             default:
                 renderError("THERE IS AN ERROR LOADING THIS PAGE");
+                break;
         }
     }
 

@@ -38,39 +38,22 @@
         </div>
     </nav>
 
-    <div class="wrapper">
-        <div class="sidebar">
-            <div class="d-flex flex-column flex-shrink-0 p-3 bg-light">
-                <span class="fs-4">Filters</span>
-                <hr>
-                <ul class="nav nav-pills flex-column mb-auto">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link" aria-current="page">
-                            <input type="checkbox"/>
-                            <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-                            Location
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link" aria-current="page">
-                            <input type="checkbox"/>
-                            <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-                            Location
-                        </a>
-                    </li>
-                </ul>
+    <div class="content mt-3" id="trips-container">
+        <a href="/trips" class="content-link">
+            <div class="card">
+                <img src="/images/general/b0055080.avif" class="card-img-top" alt="...">
+                <div class="card-body" style="display: flex; justify-content: center;align-items: center;">
+                    <p class="card-text" style="font-size: x-large;font-weight: bold">Trips</p>
+                </div>
             </div>
-        </div>
-        <div class="content container d-inline-block mt-3" id="trips-container">
-
-        </div>
+        </a>
     </div>
 
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="../javascript/trips.js"></script>
 </body>
 
 </html>

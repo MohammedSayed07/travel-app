@@ -43,6 +43,8 @@ class Database
             $params['location'] = '%' . $location . '%';
         }
 
+
+
         $query = self::execute($query, $params);
         return $query->fetchAll();
     }
