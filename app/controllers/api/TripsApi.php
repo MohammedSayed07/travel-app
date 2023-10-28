@@ -20,11 +20,17 @@ class TripsApi
                     $images = explode(",", $trip['images']);
                 }
 
+
                 $temp = [
                     'id' => $trip['trip_id'],
-                    'title' => $trip['title'],
-                    'details' => $trip['details'],
-                    'location' => $trip['location'],
+                    'title' => $trip['trip_title'],
+                    'details' => $trip['trip_details'],
+                    'location' => $trip['trip_location'],
+                    'price' => $trip['trip_price'],
+                    'available' => $trip['no_of_available_trips'],
+                    'reserved' => $trip['no_of_reserved_trips'],
+                    'startDate' => $trip['trip_start_date'],
+                    'endDate' => $trip['trip_end_date'],
                     'images' => $images
                 ];
 

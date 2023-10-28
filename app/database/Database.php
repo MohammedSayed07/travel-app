@@ -28,7 +28,16 @@ class Database
 
     public static function get(?string $location = null): false|array
     {
-        $query = "SELECT DISTINCT trips.trip_id, title, details, location,
+        $query = "SELECT DISTINCT
+                    trips.trip_id, 
+                    trip_title, 
+                    trip_details, 
+                    trip_location, 
+                    trip_price, 
+                    no_of_available_trips, 
+                    no_of_reserved_trips, 
+                    trip_start_date, 
+                    trip_end_date,
                     (
                         SELECT GROUP_CONCAT(images.image SEPARATOR ',')
                         FROM images

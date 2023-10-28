@@ -23,7 +23,22 @@ function getTripsFromApi(url)
 
 function generateTrips(trips) {
     let data = '';
+    const currentDate = new Date();
+    const currentDay = currentDate.getDate();
+    const currentMonth = currentDate.getMonth() + 1;
+    const currentYear = currentDate.getFullYear();
     for (let trip of trips) {
+        const reservationEnd = new Date(trip.endDate);
+        reservationEnd.setDate(reservationEnd.getDate() - 8)
+
+        tripReservation = ``;
+
+        if ((reservationEnd.getDate() > currentDay) && (reservationEnd.getMonth() + 1 === currentMonth) && (reservationEnd.getFullYear() === currentYear)) {
+            tripReservation = `<p class="card-text"><small class="text-danger">Only ${reservationEnd.getDate() - currentDay} days remaining for reservation to be closed! </small></p>`
+        } else {
+            tripReservation = `<p class="card-text"><small class="text-body-secondary">Reservation until: ${reservationEnd.toISOString().slice(0, 10)} </small></p>`
+        }
+
         const images = trip.images.map((image, index) => {
             if (index === 0) {
                 return `<div class="carousel-item active">
@@ -39,6 +54,7 @@ function generateTrips(trips) {
                                 </div>`
             }
         }).join('')
+
         data += `
         <div class="card mb-3" style="max-width: 1000px;">
                 <div class="row g-0 m-2">
@@ -61,12 +77,12 @@ function generateTrips(trips) {
                         <div class="card-body">
                             <h5 class="card-title">${trip.title}</h5>
                             <p class="card-text">${trip.details}</p>
-                            <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                            ${tripReservation}
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="card-body">
-                            <p class="card-text">1200$</p>
+                            <p class="card-text">${trip.price} EGP</p>
                         </div>
                     </div>
                 </div>
