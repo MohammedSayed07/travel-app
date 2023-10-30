@@ -3,6 +3,9 @@
 namespace app\database;
 
 use app\ErrorHandler;
+use DateInterval;
+use DateTime;
+use Exception;
 use PDO;
 use PDOException;
 use PDOStatement;
@@ -26,8 +29,15 @@ class Database
 
     }
 
-    public static function get(?string $location = null): false|array
+    /**
+     * @param string|null $location
+     * @return false|array
+     */
+    public static function get(array $filters): false|array
     {
+        $currentDate = new DateTime();
+        $currentDate->add(new DateInterval('P8D'));
+        $formattedCurrentDate = $currentDate->format('Y-m-d');
         $query = "SELECT DISTINCT
                     trips.trip_id, 
                     trip_title, 
@@ -44,15 +54,21 @@ class Database
                         WHERE images.trip_id = trips.trip_id
                     ) AS images
                     FROM trips
-                    LEFT JOIN images ON trips.trip_id = images.trip_id";
+                    LEFT JOIN images ON trips.trip_id = images.trip_id
+                    WHERE trips.trip_end_date >= '{$formattedCurrentDate}'";
+
         $params = [];
 
-        if ($location !== null) {
-            $query .= " WHERE location LIKE ?";
-            $params['location'] = '%' . $location . '%';
+        if (isset($filters['trip_location'])) {
+            $query .= " AND trip_location LIKE ?";
+            $params['location'] = '%' . str_replace('%', ' ', $filters['trip_location']) . '%';
         }
 
-
+        if (isset($filters['min_price']) && isset($filters['max_price'])) {
+            $query .= " AND trip_price BETWEEN ? AND ?";
+            $params['min_price'] = $filters['min_price'];
+            $params['max_price'] = $filters['max_price'];
+        }
 
         $query = self::execute($query, $params);
         return $query->fetchAll();

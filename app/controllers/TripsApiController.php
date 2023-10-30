@@ -9,11 +9,6 @@ class TripsApiController
 {
     public function getTrips():void
     {
-        if (isset($_GET['location'])) {
-            TripsApi::getTrips($_GET['location']);
-            return;
-        }
-
-        TripsApi::getTrips();
+        TripsApi::getTrips($_GET);
     }
 }

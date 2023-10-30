@@ -44,28 +44,11 @@
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
-                    <div class="btn-group dropend">
-                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            Locations
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a class="dropdown-item" href="">
-                                    ALL
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="">
-                                    Sharm Elsheikh
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="">
-                                    Elghardaga
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                    <select class="form-select" id="place-select" aria-label="Default select example">
+                        <option selected>Places To Go</option>
+                        <option value="sharm elsheikh">Sharm Elsheikh</option>
+                        <option value="elghardga">Elghardga</option>
+                    </select>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link" aria-current="page">

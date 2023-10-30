@@ -1,10 +1,19 @@
 const defaultUrl = "http://localhost:8888/api/trips";
 const currentParams = window.location.search;
 const tripContainer = document.querySelector('#trips-container');
+const placeSelect = document.querySelector('#place-select');
 
 getTripsFromApi(defaultUrl+currentParams);
 
 let filter = {}
+
+placeSelect.addEventListener('change', function () {
+    const selectedValue = placeSelect.value;
+    filter['trip_location'] = selectedValue.replace(/ /g, '%');
+    getTripsFromApi(defaultUrl + '?' + objectToUrlParameters(filter))
+    history.pushState(null, '', `/trips?${objectToUrlParameters(filter)}`);
+
+})
 
 function getTripsFromApi(url)
 {
@@ -33,7 +42,7 @@ function generateTrips(trips) {
 
         tripReservation = ``;
 
-        if ((reservationEnd.getDate() > currentDay) && (reservationEnd.getMonth() + 1 === currentMonth) && (reservationEnd.getFullYear() === currentYear)) {
+        if ((reservationEnd.getDate() >= currentDay) && (reservationEnd.getMonth() + 1 === currentMonth) && (reservationEnd.getFullYear() === currentYear)) {
             tripReservation = `<p class="card-text"><small class="text-danger">Only ${reservationEnd.getDate() - currentDay} days remaining for reservation to be closed! </small></p>`
         } else {
             tripReservation = `<p class="card-text"><small class="text-body-secondary">Reservation until: ${reservationEnd.toISOString().slice(0, 10)} </small></p>`

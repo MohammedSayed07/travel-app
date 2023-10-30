@@ -7,10 +7,10 @@ use PDOException;
 
 class TripsApi
 {
-    public static function getTrips(?string $location = null): void
+    public static function getTrips(array $filters): void
     {
 
-        $data = Database::get($location);
+        $data = Database::get($filters);
         $trips = [];
 
         if (!empty($data)) {
