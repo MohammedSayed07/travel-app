@@ -1,18 +1,38 @@
 const defaultUrl = "http://localhost:8888/api/trips";
 const currentParams = window.location.search;
 const tripContainer = document.querySelector('#trips-container');
-const placeSelect = document.querySelector('#place-select');
 
 getTripsFromApi(defaultUrl+currentParams);
 
+const placeSelect = document.querySelector('#place-select');
+const priceSetter = document.querySelector('#price-setter');
+const minPriceInput = document.querySelector('#min-price');
+const maxPriceInput = document.querySelector('#max-price');
 let filter = {}
 
 placeSelect.addEventListener('change', function () {
     const selectedValue = placeSelect.value;
-    filter['trip_location'] = selectedValue.replace(/ /g, '%');
-    getTripsFromApi(defaultUrl + '?' + objectToUrlParameters(filter))
-    history.pushState(null, '', `/trips?${objectToUrlParameters(filter)}`);
+    if (selectedValue === 'ALL') {
+        getTripsFromApi(defaultUrl)
+        history.pushState(null, '', `/trips`);
+    } else {
+        filter['trip_location'] = selectedValue.replace(/ /g, '%');
+        getTripsFromApi(defaultUrl + '?' + objectToUrlParameters(filter))
+        history.pushState(null, '', `/trips?${objectToUrlParameters(filter)}`);
+    }
+})
 
+priceSetter.addEventListener('click', function () {
+    const minPrice = minPriceInput.value;
+    let maxPrice = maxPriceInput.value;
+    if (!(minPrice === "") && !isNaN(minPrice) &&  !isNaN(maxPrice)) {
+        filter['min_price'] = minPrice;
+        if (maxPrice === "")
+            maxPrice = "99999";
+        filter['max_price'] = maxPrice;
+        getTripsFromApi(defaultUrl + '?' + objectToUrlParameters(filter))
+        history.pushState(null, '', `/trips?${objectToUrlParameters(filter)}`);
+    }
 })
 
 function getTripsFromApi(url)

@@ -1,7 +1,7 @@
 <?php
 namespace app\controllers;
 
-use app\database\Database;
+use app\database\DatabaseConnection;
 use app\models\Trips;
 
 class Controller {

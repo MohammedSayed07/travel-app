@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use app\controllers\api\TripsApi;
-use app\database\Database;
+use app\database\DatabaseConnection;
 
 class TripsApiController
 {

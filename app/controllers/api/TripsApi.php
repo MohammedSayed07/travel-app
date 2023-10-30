@@ -2,7 +2,8 @@
 
 namespace app\controllers\api;
 
-use app\database\Database;
+use app\database\DatabaseConnection;
+use app\database\TripsDatabase;
 use PDOException;
 
 class TripsApi
@@ -10,7 +11,7 @@ class TripsApi
     public static function getTrips(array $filters): void
     {
 
-        $data = Database::get($filters);
+        $data = TripsDatabase::get($filters);
         $trips = [];
 
         if (!empty($data)) {

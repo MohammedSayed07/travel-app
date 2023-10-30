@@ -1,7 +1,7 @@
 <?php
 
 use app\core\Application;
-use app\database\Database;
+use app\database\DatabaseConnection;
 
 require_once 'vendor/autoload.php';
 require_once 'app/helpers.php';
@@ -11,5 +11,5 @@ $config = require 'config.php';
 
 $app = new Application();
 
-Database::makeConnection($config['db']);
+DatabaseConnection::makeConnection($config['db']);
 

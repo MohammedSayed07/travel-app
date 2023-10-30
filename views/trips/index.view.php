@@ -44,18 +44,23 @@
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
+                    <p class="fs-6 fst-italic mx-2">Location</p>
                     <select class="form-select" id="place-select" aria-label="Default select example">
-                        <option selected>Places To Go</option>
+                        <option selected disabled></option>
+                        <option value="ALL">ALL PLACES</option>
                         <option value="sharm elsheikh">Sharm Elsheikh</option>
                         <option value="elghardga">Elghardga</option>
                     </select>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" aria-current="page">
-                        <input type="checkbox"/>
-                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-                        Location
-                    </a>
+                <li class="nav-item mt-3">
+                    <p class="fs-6 fst-italic mx-2">Price</p>
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">EGP</span>
+                        <input type="text" placeholder="Min" class="form-control" id="min-price" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">EGP</span>
+                        <input type="text" placeholder="Max" class="form-control" id="max-price" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                        <button type="button" class="btn btn-primary btn-sm mx-1" id="price-setter">Go</button>
+                    </div>
                 </li>
             </ul>
         </div>
