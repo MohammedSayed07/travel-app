@@ -13,8 +13,15 @@ let filter = {}
 placeSelect.addEventListener('change', function () {
     const selectedValue = placeSelect.value;
     if (selectedValue === 'ALL') {
-        getTripsFromApi(defaultUrl)
-        history.pushState(null, '', `/trips`);
+        if ("trip_location" in filter)
+            delete filter.trip_location;
+        getTripsFromApi(defaultUrl+ '?' + objectToUrlParameters(filter))
+        if (!isEmptyObject(filter)) {
+            history.pushState(null, '', `/trips?${objectToUrlParameters(filter)}`);
+        } else {
+            history.pushState(null, '', `/trips`);
+        }
+
     } else {
         filter['trip_location'] = selectedValue.replace(/ /g, '%');
         getTripsFromApi(defaultUrl + '?' + objectToUrlParameters(filter))
@@ -122,12 +129,13 @@ function generateTrips(trips) {
     return data;
 }
 
-function objectToUrlParameters(params)
-{
-    let urlParameters = Object.keys(params).map(function(key){
+function objectToUrlParameters(params) {
+    return Object.keys(params).map(function (key) {
         return key + '=' + params[key];
     }).join("&");
+}
 
-    return urlParameters;
+function isEmptyObject(obj) {
+    return Object.keys(obj).length === 0
 }
 
