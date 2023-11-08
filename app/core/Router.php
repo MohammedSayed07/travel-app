@@ -7,7 +7,7 @@ use app\ErrorHandler;
 class Router
 {
     protected Request $request;
-    protected array $routes = [];
+    public array $routes = [];
 
     /**
      * @param Request $request
@@ -17,6 +17,12 @@ class Router
         $this->request = $request;
     }
 
+    private function add(string $method, string $path, array $callback): void
+    {
+        $callback['middleware'] = null;
+        $this->routes[$method][$path] = $callback;
+    }
+
     /**
      * @param string $path
      * @param array $callback
@@ -24,7 +30,7 @@ class Router
      */
     public function get(string $path, array $callback): static
     {
-        $this->routes['get'][$path] = $callback;
+        $this->add(method: 'get', path: $path, callback: $callback);
 
         return $this;
     }
@@ -36,8 +42,14 @@ class Router
      */
     public function post(string $path, array $callback): static
     {
-        $this->routes['post'][$path] = $callback;
+        $this->add(method: 'post', path: $path, callback: $callback);
 
+        return $this;
+    }
+
+    public function only(string $allowed, string $method): static
+    {
+        $this->routes[$method][array_key_last($this->routes[$method])]['middleware'] = $allowed;
         return $this;
     }
 
@@ -51,8 +63,7 @@ class Router
         if (isset($this->routes[$method][$path])) {
             $callback = $this->routes[$method][$path];
 
-            //the controller is in $callback[0] and the action is in $callback[1]
-            $this->performAction($callback[0], $callback[1]);
+            $this->performAction($callback['controller'], $callback['action']);
         }
         else {
             ErrorHandler::handleErrors(404);

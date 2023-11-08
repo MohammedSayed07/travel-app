@@ -1,5 +1,13 @@
 <?php
 
+use JetBrains\PhpStorm\NoReturn;
+
+#[NoReturn] function dd($whatever): void
+{
+    var_dump($whatever);
+    exit();
+}
+
 function renderView(string $view, array $data = [], array $errors = []): void
 {
     extract($data);
