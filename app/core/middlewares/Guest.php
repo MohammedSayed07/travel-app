@@ -6,6 +6,8 @@ class Guest
 {
     public function handle(): void
     {
-        dd('guest');
+        if (isset($_SESSION['user'])) {
+            header('Location: /');
+        }
     }
 }

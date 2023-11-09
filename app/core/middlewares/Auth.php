@@ -6,6 +6,8 @@ class Auth
 {
     public function handle(): void
     {
-        dd('auth');
+        if (!isset($_SESSION['user'])) {
+            header('Location: /');
+        }
     }
 }

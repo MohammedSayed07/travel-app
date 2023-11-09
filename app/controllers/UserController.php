@@ -71,6 +71,8 @@ class UserController
                 'email' => $user['email']
             ];
 
+            session_regenerate_id(true);
+
             header('Location: /');
         } else {
             renderView('login', [], [ 'errors' => [
