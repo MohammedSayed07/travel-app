@@ -2,6 +2,7 @@
 
 namespace app\core;
 
+use app\core\middlewares\Middleware;
 use app\ErrorHandler;
 
 class Router
@@ -62,6 +63,10 @@ class Router
         $method = $this->request->getMethod();
         if (isset($this->routes[$method][$path])) {
             $callback = $this->routes[$method][$path];
+            if ($callback['middleware'] != null) {
+                $middleware = Middleware::MAP[$callback['middleware']];
+                (new $middleware)->handle();
+            }
 
             $this->performAction($callback['controller'], $callback['action']);
         }

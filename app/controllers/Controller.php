@@ -9,9 +9,4 @@ class Controller {
     {
         renderView('index');
     }
-
-    public function login(): void
-    {
-        renderView('login');
-    }
 }

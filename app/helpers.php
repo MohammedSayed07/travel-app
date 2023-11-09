@@ -8,7 +8,7 @@ use JetBrains\PhpStorm\NoReturn;
     exit();
 }
 
-function renderView(string $view, array $data = [], array $errors = []): void
+function renderView(string $view, array $data = [], array $errors = [])
 {
     extract($data);
     extract($errors);

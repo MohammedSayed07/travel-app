@@ -8,7 +8,7 @@ use PDOException;
 
 class TripsApi
 {
-    public static function getTrips(array $filters): void
+    public static function getTrips(array $filters)
     {
 
         $data = TripsDatabase::get($filters);
