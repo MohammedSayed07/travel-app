@@ -47,7 +47,7 @@ class UserController
         header('Location: /');
     }
 
-    public function session()
+    public function session(): void
     {
         $errors = [];
 
@@ -73,11 +73,20 @@ class UserController
 
             header('Location: /');
         } else {
-            renderView('login', [], [
-                'errors' => [
-                    'noAccount' => '* No matching account found for that email or password.'
-                ]
-            ]);
+            renderView('login', [], [ 'errors' => [
+                'noAccount' => '* No matching account found for that email or password.'
+            ]]);
         }
+    }
+
+    public function logout(): void
+    {
+        $_SESSION = [];
+        session_destroy();
+
+        $params = session_get_cookie_params();
+        setcookie('PHPSESSID', '', time() - 3600, $params['path'], $params['domain'], $params['secure'], $params['httponly']);
+
+        header('Location: /');
     }
 }

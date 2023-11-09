@@ -48,6 +48,13 @@ class Router
         return $this;
     }
 
+    public function delete(string $path, array $callback): static
+    {
+        $this->add(method: 'delete', path: $path, callback: $callback);
+
+        return $this;
+    }
+
     public function only(string $allowed, string $method): static
     {
         $this->routes[$method][array_key_last($this->routes[$method])]['middleware'] = $allowed;

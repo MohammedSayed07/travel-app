@@ -19,20 +19,20 @@
 
                 <div class="modal-body p-5 pt-0">
                     <form method="post" action="/login">
-                        <?php if (!empty($errors)) : ?>
+                        <?php if (isset($errors['noAccount'])) : ?>
                             <p class="small text-danger"><?= $errors['noAccount'] ?></p>
                         <?php endif; ?>
                         <div class="form-floating mb-3">
                             <input type="email" name="email" class="form-control rounded-3" id="floatingInput" placeholder="name@example.com">
                             <label for="floatingInput">Email address</label>
-                            <?php if (!empty($errors)) : ?>
+                            <?php if (isset($errors['email'])) : ?>
                                 <p class="small text-danger"><?= $errors['email'] ?></p>
                             <?php endif; ?>
                         </div>
                         <div class="form-floating mb-3">
                             <input type="password" name="password" class="form-control rounded-3" id="floatingPassword" placeholder="Password">
                             <label for="floatingPassword">Password</label>
-                            <?php if (!empty($errors)) : ?>
+                            <?php if (isset($errors['password'])) : ?>
                                 <p class="small text-danger"><?= $errors['password'] ?></p>
                             <?php endif; ?>
                         </div>

@@ -9,7 +9,7 @@ class Request
      */
     public function getMethod(): string
     {
-        return strtolower($_SERVER['REQUEST_METHOD']);
+        return isset($_POST['_method']) ? strtolower($_POST['_method']) : strtolower($_SERVER['REQUEST_METHOD']);
     }
 
     /**

@@ -1,5 +1,8 @@
 <?php
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 session_start();
 
 use app\controllers\Controller;
@@ -15,7 +18,9 @@ $app->router->get(path:'/', callback: ['controller' => Controller::class, 'actio
             ->get(path: '/register', callback: ['controller' => UserController::class, 'action' => 'register'])
             ->post(path: '/register', callback: ['controller' => UserController::class, 'action' => 'store'])
             ->get(path: '/login',callback: ['controller' => UserController::class, 'action' => 'login'])
-            ->post(path: '/login', callback: ['controller' => UserController::class, 'action' => 'session']);
+            ->post(path: '/login', callback: ['controller' => UserController::class, 'action' => 'session'])
+            ->delete(path: '/logout', callback: ['controller' => UserController::class, 'action' => 'logout']);
+
 
 
 $app->run();
