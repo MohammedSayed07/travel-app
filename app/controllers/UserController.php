@@ -42,7 +42,7 @@ class UserController
 
         UsersDatabase::store($_POST['email'], $_POST['password']);
 
-        $_SESSION['user'] = ['email' => $_POST['email']];
+        makeSession($_POST['email']);
 
         header('Location: /');
     }
@@ -67,12 +67,7 @@ class UserController
         $user = UsersDatabase::find($_POST['email']);
 
         if ($user && password_verify($_POST['password'], $user['password'])) {
-            $_SESSION['user'] = [
-                'email' => $user['email']
-            ];
-
-            session_regenerate_id(true);
-
+            makeSession($user['email']);
             header('Location: /');
         } else {
             renderView('login', [], [ 'errors' => [
