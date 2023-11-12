@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\core\Validator;
 use app\database\UsersDatabase;
+use app\http\FormValidator;
 
 class UserController
 {
@@ -18,25 +19,17 @@ class UserController
     }
     public function store(): void
     {
-        $errors = [];
-
-        if (!Validator::isEmail($_POST['email'])) {
-            $errors['email'] = '* Email must be valid';
-        }
-
-        if (!Validator::string($_POST['password'], 7, 255)) {
-            $errors['password'] = '* Password must be more than 7 letters';
-        }
-
-        if (!empty($errors)) {
-            renderView('register', [], $errors);
+        $form = new FormValidator();
+        if (! $form->validate($_POST['email'], $_POST['password'])) {
+            renderView('register', [], $form->getErrors());
             return;
         }
 
         $user = UsersDatabase::find($_POST['email']);
 
         if ($user) {
-            header('Location: /login');
+            $form->error('duplicateEmail', 'An Email is already used');
+            renderView('register', [], $form->getErrors());
             return;
         }
 
@@ -49,18 +42,10 @@ class UserController
 
     public function session(): void
     {
-        $errors = [];
+        $form = new FormValidator();
 
-        if (!Validator::isEmail($_POST['email'])) {
-            $errors['email'] = '* Email must be valid';
-        }
-
-        if (!Validator::string($_POST['password'], 7, 255)) {
-            $errors['password'] = '* Password must be more than 7 letters';
-        }
-
-        if (!empty($errors)) {
-            renderView('login', [], $errors);
+        if (! $form->validate($_POST['email'], $_POST['password'])) {
+            renderView('login', [], $form->getErrors());
             return;
         }
 
@@ -69,11 +54,11 @@ class UserController
         if ($user && password_verify($_POST['password'], $user['password'])) {
             makeSession($user['email']);
             header('Location: /');
-        } else {
-            renderView('login', [], [ 'errors' => [
-                'noAccount' => '* No matching account found for that email or password.'
-            ]]);
+            return;
         }
+
+        $form->error('noAccount', '* No matching account found for that email or password.');
+        renderView('login', [], $form->getErrors());
     }
 
     public function logout(): void
