@@ -21,6 +21,7 @@ $app->router->get(path:'/', callback: ['controller' => Controller::class, 'actio
             ->post(path: '/login', callback: ['controller' => UserController::class, 'action' => 'session'])->only('guest', 'post')
             ->delete(path: '/logout', callback: ['controller' => UserController::class, 'action' => 'logout'])->only('auth', 'delete');
 
-
-
 $app->run();
+
+unset($_SESSION['_flash']);
+
