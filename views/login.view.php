@@ -23,7 +23,8 @@
                             <p class="small text-danger"><?= $errors['noAccount'] ?></p>
                         <?php endif; ?>
                         <div class="form-floating mb-3">
-                            <input type="email" name="email" class="form-control rounded-3" id="floatingInput" placeholder="name@example.com">
+                            <input type="email" name="email" class="form-control rounded-3" id="floatingInput" placeholder="name@example.com"
+                                   value="<?= $old['email'] ?? '' ?>">
                             <label for="floatingInput">Email address</label>
                             <?php if (isset($errors['email'])) : ?>
                                 <p class="small text-danger"><?= $errors['email'] ?></p>

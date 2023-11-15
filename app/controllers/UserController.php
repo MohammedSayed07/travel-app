@@ -11,26 +11,35 @@ class UserController
 {
     public function register(): void
     {
-        renderView('register', [], [
+        renderView('register', [
+            'old' => Session::get('old') ?? []
+        ], [
             'errors' => Session::get('errors') ?? []
         ]);
     }
 
     public function login(): void
     {
-        renderView('login', [], [
+        renderView('login', [
+            'old' => Session::get('old') ?? []
+        ], [
             'errors' => Session::get('errors') ?? []
         ]);
     }
     public function store(): void
     {
+        $email = $_POST['email'];
+        $password = $_POST['password'];
         $form = new FormValidator();
-        if (! $form->validate($_POST['email'], $_POST['password'])) {
+        if (! $form->validate($email, $password)) {
+            Session::flash('old', [
+                'email' => $email
+            ]);
             Session::flash('errors', $form->getErrors());
             redirect('register');
         }
 
-        $user = UsersDatabase::find($_POST['email']);
+        $user = UsersDatabase::find($email);
 
         if ($user) {
             $form->error('duplicateEmail', 'An Email is already used');
@@ -38,26 +47,37 @@ class UserController
             redirect('register');
         }
 
-        UsersDatabase::store($_POST['email'], $_POST['password']);
+        UsersDatabase::store($email, $password);
 
-        Session::put('user', ['email' => $_POST['email']]);
+        Session::put('user', [
+            'email' => $email
+        ]);
 
         redirect();
     }
 
     public function session(): void
     {
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
         $form = new FormValidator();
 
-        if (! $form->validate($_POST['email'], $_POST['password'])) {
+        if (! $form->validate($email, $password)) {
+            Session::flash('old', [
+                'email' => $email
+            ]);
             Session::flash('errors', $form->getErrors());
             redirect('login');
         }
 
-        $user = UsersDatabase::find($_POST['email']);
+        $user = UsersDatabase::find($email);
 
-        if (!$user || !password_verify($_POST['password'], $user['password'])) {
+        if (!$user || !password_verify($password, $user['password'])) {
             $form->error('noAccount', '* No matching account found for that email or password.');
+            Session::flash('old', [
+                'email' => $email
+            ]);
             Session::flash('errors', $form->getErrors());
             redirect('login');
         }
