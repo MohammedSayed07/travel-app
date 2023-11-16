@@ -31,8 +31,8 @@ class DatabaseConnection
 
     public static function execute(string $query, array $params = []): false|PDOStatement
     {
-        $stmt = self::$connection->prepare($query);
-        $stmt->execute(array_values($params));
-        return $stmt;
+            $stmt = self::$connection->prepare($query);
+            $stmt->execute(array_values($params));
+            return $stmt;
     }
 }

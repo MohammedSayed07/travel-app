@@ -4,6 +4,7 @@ use JetBrains\PhpStorm\NoReturn;
 
 #[NoReturn] function dd($whatever): void
 {
+    echo '<pre>';
     var_dump($whatever);
     exit();
 }

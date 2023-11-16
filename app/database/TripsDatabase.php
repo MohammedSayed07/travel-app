@@ -49,6 +49,7 @@ class TripsDatabase
         }
 
         $query = DatabaseConnection::execute($query, $params);
+
         return $query->fetchAll();
     }
 }

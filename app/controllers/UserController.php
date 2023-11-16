@@ -26,6 +26,7 @@ class UserController
             'errors' => Session::get('errors') ?? []
         ]);
     }
+
     public function store(): void
     {
         $email = $_POST['email'];

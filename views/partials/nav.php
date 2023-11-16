@@ -14,6 +14,9 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/favorites">Favorites</a>
+                </li>
             </ul>
             <?php if (!isset($_SESSION['user'])) : ?>
                 <div class="d-flex gap-2">

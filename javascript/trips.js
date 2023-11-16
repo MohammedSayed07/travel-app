@@ -64,7 +64,7 @@ function generateTrips(trips) {
     const currentMonth = currentDate.getMonth() + 1;
     const currentYear = currentDate.getFullYear();
     for (let trip of trips) {
-        const reservationEnd = new Date(trip.endDate);
+        const reservationEnd = new Date(trip.trip_end_date);
         reservationEnd.setDate(reservationEnd.getDate() - 8)
 
         tripReservation = ``;
@@ -95,15 +95,15 @@ function generateTrips(trips) {
         <div class="card mb-3" style="max-width: 1000px;">
                 <div class="row g-0 m-2">
                     <div class="col-md-4">
-                        <div id="carousel${trip.id}" class="carousel slide">
+                        <div id="carousel${trip.trip_id}" class="carousel slide">
                             <div class="carousel-inner">
                                 ${images}
                             </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carousel${trip.id}" data-bs-slide="prev">
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carousel${trip.trip_id}" data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Previous</span>
                             </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carousel${trip.id}" data-bs-slide="next">
+                            <button class="carousel-control-next" type="button" data-bs-target="#carousel${trip.trip_id}" data-bs-slide="next">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Next</span>
                             </button>
@@ -111,14 +111,14 @@ function generateTrips(trips) {
                     </div>
                     <div class="col-md-6">
                         <div class="card-body">
-                            <h5 class="card-title">${trip.title}</h5>
-                            <p class="card-text">${trip.details}</p>
+                            <h5 class="card-title">${trip.trip_title}</h5>
+                            <p class="card-text">${trip.trip_details}</p>
                             ${tripReservation}
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="card-body">
-                            <p class="card-text">${trip.price} EGP</p>
+                            <p class="card-text">${trip.trip_price} EGP</p>
                         </div>
                     </div>
                 </div>

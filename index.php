@@ -5,9 +5,9 @@ ini_set('display_errors', 1);
 
 session_start();
 
+use app\controllers\api\TripsApiController;
 use app\controllers\Controller;
 use app\controllers\TripController;
-use app\controllers\TripsApiController;
 use app\controllers\UserController;
 
 require_once "init.php";
