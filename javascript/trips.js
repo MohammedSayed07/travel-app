@@ -92,7 +92,7 @@ function generateTrips(trips) {
         }).join('')
 
         data += `
-        <div class="card mb-3" style="max-width: 1000px;">
+        <div class="card mb-3" style="max-width: 900px;">
                 <div class="row g-0 m-2">
                     <div class="col-md-4">
                         <div id="carousel${trip.trip_id}" class="carousel slide">
@@ -109,16 +109,23 @@ function generateTrips(trips) {
                             </button>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="card-body">
-                            <h5 class="card-title">${trip.trip_title}</h5>
+                            <div class="d-flex justify-content-between">
+                                <h5 class="card-title d-inline-block" dir="auto">${trip.trip_title}</h5>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M20.42 4.82A5.23 5.23 0 0016.5 3 5.37 5.37 0 0012 5.58 5.37 5.37 0 007.5 3a5.23 5.23 0 00-3.92 1.82A6.35 6.35 0 002 9.07v.28c0 5.42 7.25 10.18 9.47 11.51a1 1 0 001 0C14.74 19.53 22 14.77 22 9.35v-.22-.06a6.35 6.35 0 00-1.58-4.25zM21 9.18v.17c0 4.94-7.07 9.5-9 10.65-1.92-1.15-9-5.71-9-10.65v-.17a.41.41 0 000-.11A4.81 4.81 0 017.5 4a4.39 4.39 0 013.66 2.12L12 7.44l.84-1.32A4.39 4.39 0 0116.5 4 4.81 4.81 0 0121 9.07a.41.41 0 000 .11z" fill="currentColor">
+                                    
+                                    </path>
+                                </svg>
+                            </div>
                             <p class="card-text">${trip.trip_details}</p>
                             ${tripReservation}
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-4" style="background-color: #e6f4fa">
                         <div class="card-body">
-                            <p class="card-text">${trip.trip_price} EGP</p>
+                            <h5 class="card-text fw-bold ">${trip.trip_price} <small class="fw-normal">EGP</small></h5>
                         </div>
                     </div>
                 </div>

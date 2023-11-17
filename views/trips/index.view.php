@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <?php include_once(MAIN_DIR . '/views/partials/nav.php')?>
+    <?php include_once(MAIN_DIR . '/views/partials/nav.view.php')?>
     <div class="wrapper">
         <div class="sidebar">
             <div class="d-flex flex-column flex-shrink-0 p-3 bg-light">
@@ -41,7 +41,7 @@
                 </ul>
             </div>
         </div>
-        <div class="content container d-inline-block mt-3" id="trips-container">
+        <div class="content container flex flex-column gap-2 mt-3" id="trips-container">
 
         </div>
     </div>

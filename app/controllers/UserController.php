@@ -51,6 +51,7 @@ class UserController
         UsersDatabase::store($email, $password);
 
         Session::put('user', [
+            'user_id' => $user['user_id'],
             'email' => $email
         ]);
 
@@ -82,7 +83,10 @@ class UserController
             Session::flash('errors', $form->getErrors());
             redirect('login');
         }
-        Session::put('user', ['email' => $user['email']]);
+        Session::put('user', [
+            'user_id' => $user['user_id'],
+            'email' => $user['email']
+        ]);
         redirect();
     }
 

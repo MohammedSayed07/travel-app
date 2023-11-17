@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <?php include_once(MAIN_DIR . '/views/partials/nav.php')?>
+    <?php include_once(MAIN_DIR . '/views/partials/nav.view.php')?>
     <div class="content mt-3" id="trips-container">
         <a href="/trips" class="content-link">
             <div class="card">
