@@ -10,6 +10,7 @@ session_start([
 
 use app\controllers\api\TripsApiController;
 use app\controllers\Controller;
+use app\controllers\FavoriteController;
 use app\controllers\TripController;
 use app\controllers\UserController;
 
@@ -22,6 +23,7 @@ $app->router->get(path:'/', callback: ['controller' => Controller::class, 'actio
             ->post(path: '/register', callback: ['controller' => UserController::class, 'action' => 'store'])->only('guest', 'post')
             ->get(path: '/login',callback: ['controller' => UserController::class, 'action' => 'login'])->only('guest', 'get')
             ->post(path: '/login', callback: ['controller' => UserController::class, 'action' => 'session'])->only('guest', 'post')
+            ->post(path: '/favorites', callback: ['controller' => FavoriteController::class, 'action' => 'store'])
             ->delete(path: '/logout', callback: ['controller' => UserController::class, 'action' => 'logout'])->only('auth', 'delete');
 
 $app->run();

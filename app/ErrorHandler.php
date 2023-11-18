@@ -8,7 +8,7 @@ class ErrorHandler
 {
     public static function handleExceptions(Throwable $exception): void
     {
-        http_response_code(500);
+        http_response_code(ResponseCodes::SERVER_ERROR);
 
         echo json_encode([
             "code" => $exception->getCode(),
@@ -22,10 +22,10 @@ class ErrorHandler
     {
         http_response_code($code);
         switch ($code) {
-            case 500:
+            case ResponseCodes::SERVER_ERROR:
                 renderError("500 Internal Server Error");
                 break;
-            case 404:
+            case ResponseCodes::NOT_FOUND:
                 renderError("404 PAGE IS NOT FOUND");
                 break;
             default:

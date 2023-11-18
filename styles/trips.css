@@ -21,6 +21,20 @@
     text-decoration: none;
 }
 
+.favorite {
+    transition: fill 0.5s; /* Add transition for a smooth fill effect */
+    cursor: pointer;
+}
+
+.clicked {
+    fill: red; /* Change the fill color when clicked (adjust as needed) */
+}
+
+.favorite:hover {
+    fill: red; /* Change the fill color on hover (adjust as needed) */
+}
+
+
 @media screen and (max-width: 768px) {
     .wrapper {
         flex-direction: column;

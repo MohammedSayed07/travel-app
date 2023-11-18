@@ -2,9 +2,8 @@
 
 namespace app\controllers\api;
 
-use app\database\DatabaseConnection;
 use app\database\TripsDatabase;
-use PDOException;
+use app\ResponseCodes;
 
 class TripsApiController
 {
@@ -24,6 +23,7 @@ class TripsApiController
             }
         }
 
+        http_response_code(ResponseCodes::SUCCESS);
         $jsonData = json_encode($trips);
         header('Content-Type: application/json; charset=UTF-8');
         echo $jsonData;
