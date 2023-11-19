@@ -24,6 +24,7 @@ $app->router->get(path:'/', callback: ['controller' => Controller::class, 'actio
             ->get(path: '/login',callback: ['controller' => UserController::class, 'action' => 'login'])->only('guest', 'get')
             ->post(path: '/login', callback: ['controller' => UserController::class, 'action' => 'session'])->only('guest', 'post')
             ->post(path: '/favorites', callback: ['controller' => FavoriteController::class, 'action' => 'store'])
+            ->delete(path: '/favorites', callback: ['controller' => FavoriteController::class, 'action' => 'delete'])
             ->delete(path: '/logout', callback: ['controller' => UserController::class, 'action' => 'logout'])->only('auth', 'delete');
 
 $app->run();

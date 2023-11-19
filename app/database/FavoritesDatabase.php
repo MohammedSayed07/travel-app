@@ -20,4 +20,16 @@ class FavoritesDatabase
 
         DatabaseConnection::execute($query, $params);
     }
+
+    public static function delete(int $userId, int $tripId)
+    {
+        $query = "DELETE FROM favorites WHERE user_id = ? AND trip_id = ?";
+
+        $params = [
+            'user_id' => $userId,
+            'trip_id' => $tripId
+        ];
+
+        DatabaseConnection::execute($query, $params);
+    }
 }
