@@ -2,6 +2,8 @@
 
 namespace app\controllers\api;
 
+use app\core\Session;
+use app\database\FavoritesDatabase;
 use app\database\TripsDatabase;
 use app\ResponseCodes;
 
@@ -12,14 +14,29 @@ class TripsApiController
         $data = TripsDatabase::get($_GET);
         $trips = [];
 
-        if (!empty($data)) {
-            foreach($data as $trip) {
-                $images = [];
-                if ($trip['images'] != null) {
-                    $images = explode(",", $trip['images']);
-                    $trip['images'] = $images;
+        if (Session::get('user')) {
+            $favorites = FavoritesDatabase::getUserFavorites(Session::get('user')['user_id']);
+            if (!empty($data)) {
+                foreach($data as $trip) {
+                    $images = [];
+                    if ($trip['images'] != null) {
+                        $images = explode(",", $trip['images']);
+                        $trip['images'] = $images;
+                    }
+                    $trip['isFavorite'] = in_array($trip['trip_id'], $favorites);
+                    $trips[] = $trip;
                 }
-                $trips[] = $trip;
+            }
+        } else {
+            if (!empty($data)) {
+                foreach($data as $trip) {
+                    $images = [];
+                    if ($trip['images'] != null) {
+                        $images = explode(",", $trip['images']);
+                        $trip['images'] = $images;
+                    }
+                    $trips[] = $trip;
+                }
             }
         }
 
