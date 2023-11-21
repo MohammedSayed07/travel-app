@@ -19,6 +19,7 @@ require_once "init.php";
 $app->router->get(path:'/', callback: ['controller' => Controller::class, 'action' => 'index'])
             ->get(path:'/trips', callback: ['controller' => TripController::class, 'action' => 'index'])
             ->get(path: '/api/trips', callback: ['controller' => TripsApiController::class, 'action' => 'getTrips'])
+            ->get('/favorites', ['controller' => FavoriteController::class, 'action' => 'index'])
             ->get(path: '/register', callback: ['controller' => UserController::class, 'action' => 'register'])->only('guest', 'get')
             ->post(path: '/register', callback: ['controller' => UserController::class, 'action' => 'store'])->only('guest', 'post')
             ->get(path: '/login',callback: ['controller' => UserController::class, 'action' => 'login'])->only('guest', 'get')

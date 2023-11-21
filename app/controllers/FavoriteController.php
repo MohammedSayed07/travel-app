@@ -8,6 +8,10 @@ use app\ResponseCodes;
 
 class FavoriteController
 {
+    public function index():void
+    {
+        renderView('favorites/index');
+    }
     public function store(): void
     {
         $data = json_decode(file_get_contents("php://input"), true);
