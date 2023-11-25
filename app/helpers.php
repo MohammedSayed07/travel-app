@@ -26,3 +26,9 @@ function renderError(string $error): void
 {
     require_once MAIN_DIR."/views/error.view.php";
 }
+
+function isUrl(string $url): bool
+{
+    $currentURL = filter_var(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), FILTER_SANITIZE_URL);
+    return $currentURL === $url;
+}

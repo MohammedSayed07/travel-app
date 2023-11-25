@@ -74,26 +74,11 @@ function generateTrips(trips) {
         tripReservation = ``;
 
         if ((reservationEnd.getDate() >= currentDay) && (reservationEnd.getMonth() + 1 === currentMonth) && (reservationEnd.getFullYear() === currentYear)) {
-            tripReservation = `<p class="card-text"><small class="text-danger">Only ${reservationEnd.getDate() - currentDay} days remaining for reservation to be closed! </small></p>`
+            tripReservation = `<p class="text-xs text-red-500">Only ${reservationEnd.getDate() - currentDay} days remaining for reservation to be closed!</p>`
         } else {
-            tripReservation = `<p class="card-text"><small class="text-body-secondary">Reservation until: ${reservationEnd.toISOString().slice(0, 10)} </small></p>`
+            tripReservation = `<p class="text-xs text-gray-700">Reservation until: ${reservationEnd.toISOString().slice(0, 10)} </p>`
         }
 
-        const images = trip.images.map((image, index) => {
-            if (index === 0) {
-                return `<div class="carousel-item active">
-                                    <div class="image-container">
-                                        <img src=" ${image} " class="d-block w-100 h-100" alt="...">
-                                    </div>
-                                </div>`
-            } else {
-                return `<div class="carousel-item">
-                                    <div class="image-container">
-                                        <img src=" ${image} " class="d-block w-100 h-100" alt="...">
-                                    </div>
-                                </div>`
-            }
-        }).join('')
         let tripHeart = '';
         let clickedClass = '';
         if (trip.isFavorite) {
@@ -103,43 +88,60 @@ function generateTrips(trips) {
             tripHeart = emptyHeart;
         }
 
-        data += `
-        <div class="card mb-3" style="max-width: 900px;">
-                <div class="row g-0 m-2">
-                    <div class="col-md-4">
-                        <div id="carousel${trip.trip_id}" class="carousel slide">
-                            <div class="carousel-inner">
-                                ${images}
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carousel${trip.trip_id}" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carousel${trip.trip_id}" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between">
-                                <h5 class="card-title d-inline-block" dir="auto">${trip.trip_title}</h5>
-                                <div id="heart-${trip.trip_id}" onclick="toggleHeart(${trip.trip_id})" class="${clickedClass}">
-                                    ${tripHeart}
-                                </div>
-                            </div>
-                            <p class="card-text">${trip.trip_details}</p>
-                            ${tripReservation}
-                        </div>
-                    </div>
-                    <div class="col-md-4" style="background-color: #e6f4fa">
-                        <div class="card-body">
-                            <h5 class="card-text fw-bold ">${trip.trip_price} <small class="fw-normal">EGP</small></h5>
-                        </div>
-                    </div>
+        data += `<div class="mt-4 sm:flex rounded-2xl bg-white shadow-xl">
+                <div>
+                    <img class="object-cover rounded-l-2xl rounded-br-none rounded-bl-none rounded-r-2xl sm:rounded-bl-2xl sm:rounded-r-none sm:w-72 sm:h-full w-full h-52" src="${trip.images[0]}" alt="trip-image" />
                 </div>
 
+                <div class="px-5 py-4 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <p class="text-xs">
+                            Apartment
+                        </p>
+                    
+                        <div id="heart-${trip.trip_id}" onclick="toggleHeart(${trip.trip_id})" class="${clickedClass}">
+                            ${tripHeart}
+                        </div>
+                    </div>
+
+                    <h3 class="text-lg font-semibold truncate max-w-xs" title="Hotel Riu Plaza New York Times">
+                        ${trip.trip_title}
+                    </h3>
+
+                    <p class="text-sm truncate max-w-xs" title="Hotel Riu Plaza New York Times">
+                        ${trip.trip_details}
+                    </p>
+
+                    <p class="text-sm font-semibold">
+                        9.1 - Excellent <span class="font-normal">(1319 reviews)</span>
+                    </p>
+
+                    <p class="text-xs text-red-500">
+                        ${tripReservation}
+                    </p>
+                </div>
+
+                <div class="px-2 py-2 flex-grow">
+                    <a href="#" class="transition-colors duration-300 block px-2 py-2 bg-blue-50 border border-blue-100 rounded-lg hover:bg-blue-100 hover:border-blue-200 view-color">
+                        <p class="text-xs font-semibold">
+                            Expedia
+                        </p>
+
+                        <div class="flex justify-between items-center">
+                            <p class="text-lg font-bold">
+                                ${trip.trip_price} EGP
+                            </p>
+
+                            <span class="transition-colors duration-300 rounded-lg inline-flex items-center relative view-button-color" style="">
+                                <div class="appearance-none bg-transparent py-1.5 pr-12 pl-4  focus-within:outline-none">
+                                    <p class="text-white text-md font-bold">View Deal</p>
+                                </div>
+                                <svg class="absolute right-4 pointer-events-none -rotate-90" width="26" height="26" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 15a1 1 0 0 1-.707-.293l-4-4a1 1 0 1 1 1.414-1.414L12 12.586l3.293-3.293a1 1 0 0 1 1.414 1.414l-4 4A1 1 0 0 1 12 15z" fill="white"/></svg>
+                            </span>
+                        </div>
+                    </a>
+
+                </div>
             </div>
         `
     }

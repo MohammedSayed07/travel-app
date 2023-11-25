@@ -34,6 +34,15 @@
     fill: red; /* Change the fill color on hover (adjust as needed) */
 }
 
+.view-button-color {
+    background-color: #65a30d;
+}
+
+.view-color:hover {
+    .view-button-color{
+        background-color: #4d7c0f;
+    }
+}
 
 @media screen and (max-width: 768px) {
     .wrapper {

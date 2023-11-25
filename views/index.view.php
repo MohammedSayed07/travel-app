@@ -9,11 +9,12 @@
 
     <link href="/styles/general.css" rel="stylesheet">
     <link href="/styles/trips.css" rel="stylesheet">
-    <link href="/vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
 <body>
     <?php include_once(MAIN_DIR . '/views/partials/nav.view.php')?>
+
     <div class="content mt-3" id="trips-container">
         <a href="/trips" class="content-link">
             <div class="card">
@@ -29,7 +30,6 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-    <script src="/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
 
 </html>
