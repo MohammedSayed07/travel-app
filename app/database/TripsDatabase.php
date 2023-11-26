@@ -52,4 +52,15 @@ class TripsDatabase
 
         return $query->fetchAll();
     }
+
+    public static function show(int $trip_id): array | bool
+    {
+        $query = 'SELECT * FROM trips WHERE trip_id = ?';
+
+        $params = [
+            'trip_id' => $trip_id
+        ];
+
+        return DatabaseConnection::execute($query, $params)->fetch();
+    }
 }

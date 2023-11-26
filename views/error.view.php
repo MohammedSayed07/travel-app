@@ -8,13 +8,13 @@
     <title>Safrni</title>
 
     <link href="/styles/general.css" rel="stylesheet">
-    <link href="/vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
 <body>
     <?php include_once(MAIN_DIR . '/views/partials/nav.view.php')?>
 
-    <h1>
+    <h1 class="text-center mt-40 text-5xl font-bold font-mono">
         <?= $error ?>
     </h1>
 

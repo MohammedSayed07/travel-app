@@ -104,11 +104,11 @@ function generateTrips(trips) {
                         </div>
                     </div>
 
-                    <h3 class="text-lg font-semibold truncate max-w-xs" title="Hotel Riu Plaza New York Times">
+                    <h3 class="text-lg font-semibold truncate max-w-xs" title="${trip.trip_title}">
                         ${trip.trip_title}
                     </h3>
 
-                    <p class="text-sm truncate max-w-xs" title="Hotel Riu Plaza New York Times">
+                    <p class="text-sm truncate max-w-xs" title="${trip.trip_details}">
                         ${trip.trip_details}
                     </p>
 
@@ -122,7 +122,7 @@ function generateTrips(trips) {
                 </div>
 
                 <div class="px-2 py-2 flex-grow">
-                    <a href="#" class="transition-colors duration-300 block px-2 py-2 bg-blue-50 border border-blue-100 rounded-lg hover:bg-blue-100 hover:border-blue-200 view-color">
+                    <a href="/trip?trip_id=${trip.trip_id}" class="transition-colors duration-300 block px-2 py-2 bg-blue-50 border border-blue-100 rounded-lg hover:bg-blue-100 hover:border-blue-200 view-color">
                         <p class="text-xs font-semibold">
                             Expedia
                         </p>
