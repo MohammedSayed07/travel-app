@@ -55,7 +55,12 @@ class TripsDatabase
 
     public static function show(int $trip_id): array | bool
     {
-        $query = 'SELECT * FROM trips WHERE trip_id = ?';
+        $query = "SELECT *, (
+                        SELECT DISTINCT GROUP_CONCAT(images.image SEPARATOR ',')
+                        FROM images
+                        WHERE images.trip_id = trips.trip_id
+                    ) AS images FROM trips WHERE trip_id = ?";
+
 
         $params = [
             'trip_id' => $trip_id

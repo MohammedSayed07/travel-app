@@ -40,20 +40,17 @@
             </nav>
 
             <!-- Image gallery -->
-            <div class="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-                <div class="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
-                    <img src="https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg" alt="Two each of gray, white, and black shirts laying flat." class="h-full w-full object-cover object-center">
-                </div>
-                <div class="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-                    <div class="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-                        <img src="https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-01.jpg" alt="Model wearing plain black basic tee." class="h-full w-full object-cover object-center">
+            <div class="mx-auto mt-6 max-w-2xl sm:px-6 lg:max-w-3xl lg:px-8">
+                <div class="swiper">
+                    <div class="swiper-wrapper">
+                        <?php foreach ($trip['images'] as $image) : ?>
+                        <div class="swiper-slide aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
+                            <img src="<?= $image ?>" alt="Model wearing plain white basic tee." class="w-full h-full object-cover object-center">
+                        </div>
+                        <?php endforeach;?>
                     </div>
-                    <div class="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-                        <img src="https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg" alt="Model wearing plain gray basic tee." class="h-full w-full object-cover object-center">
-                    </div>
-                </div>
-                <div class="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
-                    <img src="https://tailwindui.com/img/ecommerce-images/product-page-02-featured-product-shot.jpg" alt="Model wearing plain white basic tee." class="h-full w-full object-cover object-center">
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
                 </div>
             </div>
 
@@ -73,7 +70,6 @@
                         <h3 class="sr-only">Reviews</h3>
                         <div class="flex items-center">
                             <div class="flex items-center">
-                                <!-- Active: "text-gray-900", Default: "text-gray-200" -->
                                 <svg class="text-gray-900 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                     <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
                                 </svg>
@@ -117,10 +113,10 @@
 
                         <div class="mt-4">
                             <ul role="list" class="list-disc space-y-2 pl-4 text-sm">
-                                <li class="text-gray-400"><span class="text-gray-600">Hand cut and sewn locally</span></li>
-                                <li class="text-gray-400"><span class="text-gray-600">Dyed with our proprietary colors</span></li>
-                                <li class="text-gray-400"><span class="text-gray-600">Pre-washed &amp; pre-shrunk</span></li>
-                                <li class="text-gray-400"><span class="text-gray-600">Ultra-soft 100% cotton</span></li>
+                                <li class="text-gray-400"><span class="text-gray-600">Free Internet</span></li>
+                                <li class="text-gray-400"><span class="text-gray-600">Kitchen</span></li>
+                                <li class="text-gray-400"><span class="text-gray-600">Spa available</span></li>
+                                <li class="text-gray-400"><span class="text-gray-600">Big rooms</span></li>
                             </ul>
                         </div>
                     </div>
@@ -150,6 +146,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-
+<script src="/javascript/trip.js"></script>
 </body>
 </html>

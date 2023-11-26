@@ -4,7 +4,6 @@ namespace app\controllers;
 
 use app\database\TripsDatabase;
 use DateTime;
-use Exception;
 
 class TripController
 {
@@ -13,9 +12,7 @@ class TripController
         renderView('trips/index');
     }
 
-    /**
-     * @throws Exception
-     */
+
     public function show(): void
     {
         if (!is_numeric($_GET['trip_id']))
@@ -25,13 +22,16 @@ class TripController
 
         $trip = TripsDatabase::show($_GET['trip_id']);
 
-        if (!$trip)
-        {
+        if (!$trip) {
             redirect('trips');
         }
 
         $currentDate = new DateTime();
         $tripEndDate = new DateTime($trip['trip_end_date']);
+
+        if ($currentDate > $tripEndDate) {
+            redirect('trips');
+        }
 
         $tripEndDate->modify('-8 day');
 
@@ -44,6 +44,8 @@ class TripController
             $days = (int)$tripEndDate->format('d') - (int)$currentDate->format('d');
 
         }
+
+        $trip['images'] = explode(',', $trip['images']);
 
         renderView('trips/show', [
             'trip' => $trip,
