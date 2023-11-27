@@ -13,6 +13,7 @@
 <body>
     <?php include_once(MAIN_DIR . '/views/partials/nav.view.php')?>
 
+    <script src="../../javascript/nav.js"></script>
 </body>
 
 </html>

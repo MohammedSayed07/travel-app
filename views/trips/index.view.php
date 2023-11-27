@@ -22,7 +22,7 @@
                 </p>
 
                 <span class="transition-colors duration-300 bg-transparent border rounded-2xl inline-flex items-center relative hover:border-blue-500">
-                    <select id="place-select" class="appearance-none bg-transparent py-3 pr-24 pl-4 text-sm font-semibold focus-within:outline-none">
+                    <select id="place-select" class="appearance-none bg-transparent py-3 pr-24 pl-4 text-sm font-semibold focus-within:outline-none cursor-pointer">
                         <option selected value="ALL">ALL PLACES</option>
                         <option value="sharm elsheikh">Sharm Elsheikh</option>
                         <option value="elghardga">Elghardga</option>
@@ -36,16 +36,14 @@
                     Price:
                 </p>
 
-                <span class="transition-colors duration-300 bg-transparent border rounded-2xl inline-flex items-center relative hover:border-blue-500">
+                <span id="show-price" class="transition-colors duration-300 bg-transparent border rounded-2xl inline-flex items-center relative hover:border-blue-500 cursor-pointer">
                     <div id="price-select" class="appearance-none bg-transparent py-3 pr-40 pl-4 text-sm font-semibold focus-within:outline-none">
                         <p><?= $_GET['min_price'] ?? 0 ?> - <?= $_GET['max_price'] ?? 10000 ?>+ EGP</p>
-
-
                     </div>
                     <svg class="absolute right-4 pointer-events-none" width="26" height="26" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 15a1 1 0 0 1-.707-.293l-4-4a1 1 0 1 1 1.414-1.414L12 12.586l3.293-3.293a1 1 0 0 1 1.414 1.414l-4 4A1 1 0 0 1 12 15z" style="fill:#1c1b1e"/></svg>
                 </span>
 
-                <div class="transition-all duration-300 hidden transform opacity-0 scale-95 absolute left-0 z-10 mt-2 w-80 origin-top-left rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                <div id="price-menu" class="transition-all duration-300 hidden opacity-0 scale-95 absolute left-0 z-10 mt-2 w-80 origin-top-left rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                     <div class="px-4 py-2">
                         <h3 class="text-sm font-bold">
                             Set price range
@@ -92,6 +90,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="../../javascript/nav.js"></script>
     <script src="../../javascript/trips.js"></script>
 </body>
 

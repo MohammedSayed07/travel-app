@@ -8,10 +8,28 @@ getTripsFromApi(defaultUrl+currentParams);
 const fillHeart = '<svg aria-label="Unlike" fill="red" height="24" role="img" viewBox="0 0 48 48" width="24" class="favorite">\n<title>Unlike</title>\n<path d="M34.6 3.1c-4.5 0-7.9 1.8-10.6 5.6-2.7-3.7-6.1-5.5-10.6-5.5C6 3.1 0 9.6 0 17.6c0 7.3 5.4 12 10.6 16.5.6.5 1.3 1.1 1.9 1.7l2.3 2c4.4 3.9 6.6 5.9 7.6 6.5.5.3 1.1.5 1.6.5s1.1-.2 1.6-.5c1-.6 2.8-2.2 7.8-6.8l2-1.8c.7-.6 1.3-1.2 2-1.7C42.7 29.6 48 25 48 17.6c0-8-6-14.5-13.4-14.5z">\n</path>\n</svg>'
 const emptyHeart = '<svg aria-label="like" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="favorite">\n<path  d="M20.42 4.82A5.23 5.23 0 0016.5 3 5.37 5.37 0 0012 5.58 5.37 5.37 0 007.5 3a5.23 5.23 0 00-3.92 1.82A6.35 6.35 0 002 9.07v.28c0 5.42 7.25 10.18 9.47 11.51a1 1 0 001 0C14.74 19.53 22 14.77 22 9.35v-.22-.06a6.35 6.35 0 00-1.58-4.25zM21 9.18v.17c0 4.94-7.07 9.5-9 10.65-1.92-1.15-9-5.71-9-10.65v-.17a.41.41 0 000-.11A4.81 4.81 0 017.5 4a4.39 4.39 0 013.66 2.12L12 7.44l.84-1.32A4.39 4.39 0 0116.5 4 4.81 4.81 0 0121 9.07a.41.41 0 000 .11z">\n</path>\n</svg>\n'
 const placeSelect = document.querySelector('#place-select');
+const showPrice = document.querySelector('#show-price');
+const priceMenu = document.querySelector('#price-menu');
 const priceSetter = document.querySelector('#price-setter');
 const minPriceInput = document.querySelector('#min-price');
 const maxPriceInput = document.querySelector('#max-price');
 let filter = {}
+
+showPrice.addEventListener('click', function () {
+    if (priceMenu.classList.contains('hidden')) {
+        priceMenu.classList.remove('hidden');
+        priceMenu.classList.remove('opacity-0')
+        priceMenu.classList.remove('scale-95')
+        priceMenu.classList.add('opacity-100')
+        priceMenu.classList.add('scale-100')
+    } else {
+        priceMenu.classList.add('hidden');
+        priceMenu.classList.remove('opacity-100')
+        priceMenu.classList.remove('scale-100')
+        priceMenu.classList.add('opacity-0')
+        priceMenu.classList.add('scale-95')
+    }
+})
 
 placeSelect.addEventListener('change', function () {
     const selectedValue = placeSelect.value;

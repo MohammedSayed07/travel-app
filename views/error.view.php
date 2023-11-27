@@ -18,6 +18,7 @@
         <?= $error ?>
     </h1>
 
+    <script src="../../javascript/nav.js"></script>
 </body>
 
 </html>
