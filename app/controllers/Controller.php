@@ -2,7 +2,7 @@
 namespace app\controllers;
 
 use app\database\DatabaseConnection;
-use app\models\Trips;
+use app\models\Trip;
 
 class Controller {
     public function index(): void

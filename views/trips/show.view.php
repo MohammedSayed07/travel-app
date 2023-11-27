@@ -34,7 +34,7 @@
                     </li>
 
                     <li class="text-sm">
-                        <a href="#" aria-current="page" class="font-medium text-gray-500 hover:text-gray-600"><?= $trip['trip_title'] ?></a>
+                        <a href="#" aria-current="page" class="font-medium text-gray-500 hover:text-gray-600"><?= $trip->getTitle() ?></a>
                     </li>
                 </ol>
             </nav>
@@ -43,7 +43,7 @@
             <div class="mx-auto mt-6 max-w-2xl sm:px-6 lg:max-w-3xl lg:px-8">
                 <div class="swiper">
                     <div class="swiper-wrapper">
-                        <?php foreach ($trip['images'] as $image) : ?>
+                        <?php foreach ($trip->getImages() as $image) : ?>
                         <div class="swiper-slide aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
                             <img src="<?= $image ?>" alt="Model wearing plain white basic tee." class="w-full h-full object-cover object-center">
                         </div>
@@ -57,13 +57,13 @@
             <!-- Product info -->
             <div class="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
                 <div class="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-                    <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl"><?= $trip['trip_title'] ?></h1>
+                    <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl"><?= $trip->getTitle() ?></h1>
                 </div>
 
                 <!-- Options -->
                 <div class="mt-4 lg:row-span-3 lg:mt-0">
                     <h2 class="sr-only">Product information</h2>
-                    <p class="text-3xl tracking-tight text-gray-900"><?= $trip['trip_price']?> EGP</p>
+                    <p class="text-3xl tracking-tight text-gray-900"><?= $trip->getPrice() ?> EGP</p>
 
                     <!-- Reviews -->
                     <div class="mt-6">
@@ -104,7 +104,7 @@
                         <h3 class="sr-only">Description</h3>
 
                         <div class="space-y-6">
-                            <p class="text-base text-gray-900"><?= $trip['trip_details'] ?></p>
+                            <p class="text-base text-gray-900"><?= $trip->getDetails() ?></p>
                         </div>
                     </div>
 
@@ -125,13 +125,13 @@
                         <h2 class="text-sm font-medium text-gray-900">Details</h2>
 
                         <div class="mt-4 space-y-6">
-                            <?php if ($days) : ?>
+                            <?php if ($trip->calculateDayToEndOfReservation()) : ?>
                                 <p class="text-sm text-red-600">
-                                    Only <?= $days ?> days remaining for reservation to be closed!
+                                    Only <?= $trip->calculateDayToEndOfReservation() ?> days remaining for reservation to be closed!
                                 </p>
                             <?php else : ?>
                                 <p class="text-sm text-gray-600">
-                                    Reservation until: <?= $reservationEnd ?>
+                                    Reservation until: <?= $trip->getEndOfReservationFormatted() ?>
                                 </p>
                             <?php endif ?>
                         </div>

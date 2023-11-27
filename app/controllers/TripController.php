@@ -2,8 +2,9 @@
 
 namespace app\controllers;
 
-use app\database\TripsDatabase;
-use DateTime;
+use app\models\Trip;
+use app\core\DateUtils;
+use Exception;
 
 class TripController
 {
@@ -13,44 +14,33 @@ class TripController
     }
 
 
+    /**
+     * @return void
+     * @throws Exception
+     */
     public function show(): void
     {
-        if (!is_numeric($_GET['trip_id']))
-        {
+        $tripId = filter_input(INPUT_GET, 'trip_id', FILTER_VALIDATE_INT);
+
+        if ($tripId === false || $tripId === null) {
             redirect('trips');
         }
 
-        $trip = TripsDatabase::show($_GET['trip_id']);
+        $tripData = Trip::getTripById($tripId);
 
-        if (!$trip) {
+        if (!$tripData) {
             redirect('trips');
         }
 
-        $currentDate = new DateTime();
-        $tripEndDate = new DateTime($trip['trip_end_date']);
+        $tripModel = new Trip($tripData) ;
 
-        if ($currentDate > $tripEndDate) {
+        if (DateUtils::isOutdated($tripModel->getEndDate())) {
             redirect('trips');
         }
 
-        $tripEndDate->modify('-8 day');
-
-        $days = 0;
-
-        if (((int)$tripEndDate->format('d') >= (int)$currentDate->format('d')) &&
-            ((int)$tripEndDate->format('m') + 1 === (int)$currentDate->format('m')) &&
-            ((int)$tripEndDate->format('y') === (int)$currentDate->format('y'))) {
-
-            $days = (int)$tripEndDate->format('d') - (int)$currentDate->format('d');
-
-        }
-
-        $trip['images'] = explode(',', $trip['images']);
 
         renderView('trips/show', [
-            'trip' => $trip,
-            'days' => $days,
-            'reservationEnd' => $tripEndDate->format('Y-m-d')
+            'trip' => $tripModel
         ]);
     }
 }
