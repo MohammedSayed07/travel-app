@@ -13,24 +13,22 @@ const priceMenu = document.querySelector('#price-menu');
 const priceSetter = document.querySelector('#price-setter');
 const minPriceInput = document.querySelector('#min-price');
 const maxPriceInput = document.querySelector('#max-price');
-let filter = {}
+let filter = {};
 
 showPrice.addEventListener('click', function () {
     if (priceMenu.classList.contains('hidden')) {
-        priceMenu.classList.remove('hidden');
-        priceMenu.classList.remove('opacity-0')
-        priceMenu.classList.remove('scale-95')
-        priceMenu.classList.add('opacity-100')
-        priceMenu.classList.add('scale-100')
+        priceMenu.classList.remove('hidden', 'opacity-0', 'scale-95');
+        priceMenu.classList.add('opacity-100', 'scale-100');
     } else {
-        priceMenu.classList.add('hidden');
-        priceMenu.classList.remove('opacity-100')
-        priceMenu.classList.remove('scale-100')
-        priceMenu.classList.add('opacity-0')
-        priceMenu.classList.add('scale-95')
+        priceMenu.classList.add('hidden', 'opacity-0', 'scale-95');
+        priceMenu.classList.remove('opacity-100', 'scale-100');
     }
 })
 
+priceMenu.addEventListener('mouseleave', function () {
+    priceMenu.classList.add('hidden', 'opacity-0', 'scale-95');
+    priceMenu.classList.remove('opacity-100', 'scale-100');
+})
 placeSelect.addEventListener('change', function () {
     const selectedValue = placeSelect.value;
     if (selectedValue === 'ALL') {
@@ -72,6 +70,7 @@ function getTripsFromApi(url)
             }
             throw Error("Network response was not ok")
         }).then((data)=> {
+            console.log(data)
             tripContainer.innerHTML = generateTrips(data)
     }).catch((error)=>{
         console.log('Error: ' + error)
@@ -106,9 +105,11 @@ function generateTrips(trips) {
             tripHeart = emptyHeart;
         }
 
+
+
         data += `<div class="mt-4 sm:flex rounded-2xl bg-white shadow-xl">
                 <div>
-                    <img class="object-cover rounded-l-2xl rounded-br-none rounded-bl-none rounded-r-2xl sm:rounded-bl-2xl sm:rounded-r-none sm:w-72 sm:h-full w-full h-52" src="${trip.images[0]}" alt="trip-image" />
+                    <img class="object-cover rounded-l-2xl rounded-br-none rounded-bl-none rounded-r-2xl sm:rounded-bl-2xl sm:rounded-r-none sm:w-72 sm:h-full w-full h-52" src="${trip.images && trip.images[0] ? trip.images[0] : '/images/1/1dd818a7-5909-446d-80ef-3c6c4f423c49.jpeg'}" alt="trip-image" />
                 </div>
 
                 <div class="px-5 py-4 space-y-3">

@@ -16,16 +16,16 @@ class TripsDatabase
         $currentDate = new DateTime();
         $currentDate->add(new DateInterval('P8D'));
         $formattedCurrentDate = $currentDate->format('Y-m-d');
-        $query = "SELECT DISTINCT
-                    trips.trip_id, 
-                    trip_title, 
-                    trip_details, 
-                    trip_location, 
-                    trip_price, 
-                    no_of_available_trips, 
-                    no_of_reserved_trips, 
-                    trip_start_date, 
-                    trip_end_date,
+        $query = "SELECT trips.trip_id,
+                    trip_title,
+                    trip_details,
+                    trip_location,
+                    trip_price,
+                    no_of_available_trips,
+                    no_of_reserved_trips,
+                    trip_start_date,
+                    trip_end_date
+                    ,
                     (
                         SELECT GROUP_CONCAT(images.image SEPARATOR ',')
                         FROM images
@@ -47,6 +47,8 @@ class TripsDatabase
             $params['min_price'] = $filters['min_price'];
             $params['max_price'] = $filters['max_price'];
         }
+
+        $query .= " GROUP BY trips.trip_id";
 
         $query = DatabaseConnection::execute($query, $params);
 

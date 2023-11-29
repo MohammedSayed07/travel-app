@@ -13,7 +13,6 @@ class TripController
         renderView('trips/index');
     }
 
-
     /**
      * @return void
      * @throws Exception
@@ -32,12 +31,12 @@ class TripController
             redirect('trips');
         }
 
-        $tripModel = new Trip($tripData) ;
+        $tripModel = Trip::factory($tripData);
+
 
         if (DateUtils::isOutdated($tripModel->getEndDate())) {
             redirect('trips');
         }
-
 
         renderView('trips/show', [
             'trip' => $tripModel

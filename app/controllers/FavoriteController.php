@@ -4,13 +4,35 @@ namespace app\controllers;
 
 use app\core\Session;
 use app\database\FavoritesDatabase;
+use app\database\TripsDatabase;
+use app\models\Trip;
 use app\ResponseCodes;
+use Exception;
 
 class FavoriteController
 {
-    public function index():void
+
+    /**
+     * @throws Exception
+     */
+    public function index(): void
     {
-        renderView('favorites/index');
+        $trips_id = [];
+        if (Session::get('user') !== null) {
+            $trips_id = FavoritesDatabase::getUserFavorites(Session::get('user')['user_id']);
+        }
+
+        $trips = [];
+
+        if (!empty($trips_id)) {
+            foreach($trips_id as $trip_id) {
+                $trips[] = new Trip(Trip::getTripById($trip_id));
+            }
+        }
+
+        renderView('favorites/index', [
+            'trips' => $trips
+        ]);
     }
     public function store(): void
     {

@@ -7,33 +7,35 @@ use DateTime;
 
 class DateUtils
 {
-    public static function isOutdated(DateTime $tripEndDate): bool
+    public static function isOutdated(string $date): bool
     {
-        return  new DateTime() > $tripEndDate;
+        return  new DateTime() > new DateTime($date);
     }
 
-    public static function calculateDateUntil(DateTime $tripEndDate): int
+    public static function calculateDateUntil(string $date): int
     {
         $currentDate = new DateTime();
+        $untilDate = new DateTime($date);
 
-        $tripEndDate->modify('-8 day');
+        $untilDate->modify('-8 day');
 
         $days = 0;
 
-        if (((int)$tripEndDate->format('d') >= (int)$currentDate->format('d')) &&
-            ((int)$tripEndDate->format('m') + 1 === (int)$currentDate->format('m')) &&
-            ((int)$tripEndDate->format('y') === (int)$currentDate->format('y'))) {
+        if (((int)$untilDate->format('d') >= (int)$currentDate->format('d')) &&
+            ((int)$untilDate->format('m') + 1 === (int)$currentDate->format('m')) &&
+            ((int)$untilDate->format('y') === (int)$currentDate->format('y'))) {
 
-            $days = (int)$tripEndDate->format('d') - (int)$currentDate->format('d');
+            $days = (int)$untilDate->format('d') - (int)$currentDate->format('d');
 
         }
 
         return $days;
     }
 
-    public static function formatDate(DateTime $date, int $daysToAddOrSubtract): string
+    public static function formatDate(string $date, int $daysToAddOrSubtract): string
     {
-        $date->modify("$daysToAddOrSubtract day");
-        return $date->format('Y-m-d');
+        $formatDate = new DateTime($date);
+        $formatDate->modify("$daysToAddOrSubtract day");
+        return $formatDate->format('Y-m-d');
     }
 }

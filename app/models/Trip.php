@@ -19,28 +19,74 @@ class Trip
     private ?int $numOfTripsAvailable;
     private ?int $numOfReservedTrips;
     private ?int $rateId;
-    private ?DateTime $startDate;
-    private ?DateTime $endDate;
+    private ?string $startDate;
+    private ?string $endDate;
     private ?array $images;
 
     /**
-     * @param array $trip
-     * @throws Exception
      */
-    public function __construct(array $trip)
+    public function __construct()
     {
-        $this->id = $trip['trip_id'];
-        $this->title = $trip['trip_title'];
-        $this->details = $trip['trip_details'];
-        $this->location = $trip['trip_location'];
-        $this->price = $trip['trip_price'];
-        $this->companyId = $trip['company_id'];
-        $this->numOfTripsAvailable = $trip['no_of_available_trips'] ?? null;
-        $this->numOfReservedTrips = $trip['no_of_reserved_trips'] ?? null;
-        $this->rateId = $trip['trip_rate_id'] ?? null;
-        $this->startDate = new DateTime($trip['trip_start_date']);
-        $this->endDate = new DateTime($trip['trip_end_date']);
-        $this->images = explode(',', $trip['images']) ?? null;
+    }
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function setTitle(string $title): void
+    {
+        $this->title = $title;
+    }
+
+    public function setDetails(string $details): void
+    {
+        $this->details = $details;
+    }
+
+    public function setLocation(string $location): void
+    {
+        $this->location = $location;
+    }
+
+    public function setPrice(int $price): void
+    {
+        $this->price = $price;
+    }
+
+    public function setCompanyId(int $companyId): void
+    {
+        $this->companyId = $companyId;
+    }
+
+    public function setNumOfTripsAvailable(?int $numOfTripsAvailable): void
+    {
+        $this->numOfTripsAvailable = $numOfTripsAvailable;
+    }
+
+    public function setNumOfReservedTrips(?int $numOfReservedTrips): void
+    {
+        $this->numOfReservedTrips = $numOfReservedTrips;
+    }
+
+    public function setRateId(?int $rateId): void
+    {
+        $this->rateId = $rateId;
+    }
+
+    public function setStartDate(?string $startDate): void
+    {
+        $this->startDate = $startDate;
+    }
+
+    public function setEndDate(?string $endDate): void
+    {
+        $this->endDate = $endDate;
+    }
+
+    public function setImages(?array $images): void
+    {
+        $this->images = $images;
     }
 
     public function getId(): int
@@ -88,19 +134,19 @@ class Trip
         return $this->rateId;
     }
 
-    public function getStartDate(): DateTime
+    public function getStartDate(): string
     {
         return $this->startDate;
     }
 
-    public function getEndDate(): DateTime
+    public function getEndDate(): string
     {
         return $this->endDate;
     }
 
     public function getImages(): array
     {
-        return $this->images;
+        return $this->images ?? [];
     }
 
     public function calculateDayToEndOfReservation(): int
@@ -116,5 +162,41 @@ class Trip
     public static function getTripById($tripId): bool|array
     {
         return TripsDatabase::show($tripId);
+    }
+
+    public static function factory(array $data): Trip
+    {
+        $obj = new static();
+        $mapper = ($obj)->dataMapper();
+
+        if (isset($data['images'])) {
+            $data['images'] = explode(',', $data['images']);
+        }
+
+        foreach ($data as $key => $value) {
+            if (array_key_exists($key, $mapper)) {
+                $setterMethod = 'set'.$mapper[$key];
+                $obj->{$setterMethod}($value);
+            }
+        }
+        return $obj;
+    }
+
+    private function dataMapper(): array
+    {
+        return [
+            'trip_id' => 'id',
+            'trip_title' => 'title',
+            'trip_details' => 'details',
+            'trip_location' => 'location',
+            'trip_price' => 'price',
+            'company_id' => 'companyId',
+            'no_of_available_trips' => 'numOfTripsAvailable',
+            'no_of_reserved_trips' => 'numOfReservedTrips',
+            'trip_rate_id' => 'rateId',
+            'trip_start_date' => 'startDate',
+            'trip_end_date' => 'endDate',
+            'images' => 'images',
+        ];
     }
 }

@@ -30,7 +30,7 @@ class FavoritesDatabase
         DatabaseConnection::execute($query, $params);
     }
 
-    public static function delete(int $userId, int $tripId)
+    public static function delete(int $userId, int $tripId): void
     {
         $query = "DELETE FROM favorites WHERE user_id = ? AND trip_id = ?";
 
