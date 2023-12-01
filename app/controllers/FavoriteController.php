@@ -26,7 +26,8 @@ class FavoriteController
 
         if (!empty($trips_id)) {
             foreach($trips_id as $trip_id) {
-                $trips[] = new Trip(Trip::getTripById($trip_id));
+                $trip = Trip::getTripById($trip_id);
+                $trips[] = Trip::factory($trip);
             }
         }
 

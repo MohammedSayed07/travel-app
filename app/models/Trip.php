@@ -3,10 +3,10 @@
 namespace app\models;
 
 use app\core\DateUtils;
-use app\database\DatabaseConnection;
+use app\core\Session;
+use app\database\FavoritesDatabase;
 use app\database\TripsDatabase;
-use DateTime;
-use Exception;
+
 
 class Trip
 {
@@ -162,6 +162,30 @@ class Trip
     public static function getTripById($tripId): bool|array
     {
         return TripsDatabase::show($tripId);
+    }
+
+    public static function all(array $filters): array
+    {
+        $data = TripsDatabase::get($filters);
+
+        $trips = [];
+
+        $favorites = Session::get('user') ? FavoritesDatabase::getUserFavorites(Session::get('user')['user_id']) : [];
+
+        if (!empty($data)) {
+            foreach($data as $trip) {
+                $images = [];
+                if ($trip['images'] != null) {
+                    $images = explode(",", $trip['images']);
+                    $trip['images'] = $images;
+                }
+                $trip['isFavorite'] = in_array($trip['trip_id'], $favorites);
+                $trips[] = $trip;
+            }
+        }
+
+        return $trips;
+
     }
 
     public static function factory(array $data): Trip

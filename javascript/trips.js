@@ -135,9 +135,8 @@ function generateTrips(trips) {
                         9.1 - Excellent <span class="font-normal">(1319 reviews)</span>
                     </p>
 
-                    <p class="text-xs text-red-500">
-                        ${tripReservation}
-                    </p>
+                    
+                    ${tripReservation}
                 </div>
 
                 <div class="px-2 py-2 flex-grow">
