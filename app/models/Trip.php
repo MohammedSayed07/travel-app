@@ -8,7 +8,7 @@ use app\database\FavoritesDatabase;
 use app\database\TripsDatabase;
 
 
-class Trip
+class Trip extends Model
 {
     private int $id;
     private string $title;
@@ -22,6 +22,7 @@ class Trip
     private ?string $startDate;
     private ?string $endDate;
     private ?array $images;
+    private bool $isFavorite;
 
     /**
      */
@@ -149,6 +150,16 @@ class Trip
         return $this->images ?? [];
     }
 
+    public function isFavorite(): bool
+    {
+        return $this->isFavorite;
+    }
+
+    public function setIsFavorite(bool $isFavorite): void
+    {
+        $this->isFavorite = $isFavorite;
+    }
+
     public function calculateDayToEndOfReservation(): int
     {
         return DateUtils::calculateDateUntil($this->endDate);
@@ -179,7 +190,7 @@ class Trip
                     $images = explode(",", $trip['images']);
                     $trip['images'] = $images;
                 }
-                $trip['isFavorite'] = in_array($trip['trip_id'], $favorites);
+                $trip['is_favorite'] = in_array($trip['trip_id'], $favorites);
                 $trips[] = $trip;
             }
         }
@@ -188,25 +199,7 @@ class Trip
 
     }
 
-    public static function factory(array $data): Trip
-    {
-        $obj = new static();
-        $mapper = ($obj)->dataMapper();
-
-        if (isset($data['images'])) {
-            $data['images'] = explode(',', $data['images']);
-        }
-
-        foreach ($data as $key => $value) {
-            if (array_key_exists($key, $mapper)) {
-                $setterMethod = 'set'.$mapper[$key];
-                $obj->{$setterMethod}($value);
-            }
-        }
-        return $obj;
-    }
-
-    private function dataMapper(): array
+    protected function dataMapper(): array
     {
         return [
             'trip_id' => 'id',
@@ -221,6 +214,7 @@ class Trip
             'trip_start_date' => 'startDate',
             'trip_end_date' => 'endDate',
             'images' => 'images',
+            'is_favorite' => 'isFavorite'
         ];
     }
 }

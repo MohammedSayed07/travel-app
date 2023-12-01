@@ -6,6 +6,8 @@ use app\core\Validator;
 
 class FormValidator
 {
+    protected string $email;
+    protected string $password;
     protected array $errors = [];
 
     public function validate(string $email, string $password): bool

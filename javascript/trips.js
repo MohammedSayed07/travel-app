@@ -98,7 +98,7 @@ function generateTrips(trips) {
 
         let tripHeart = '';
         let clickedClass = '';
-        if (trip.isFavorite) {
+        if (trip.is_favorite) {
             tripHeart = fillHeart;
             clickedClass = 'clicked'
         } else {
@@ -182,7 +182,7 @@ function toggleHeart(tripId) {
     const heartDiv = document.querySelector(id);
     if (heartDiv.classList.contains("clicked")) {
         // The "clicked" class is active
-        fetch(`http://localhost:8888/favorites?trip_id=${tripId}`, {
+        fetch(`http://localhost:8888/api/favorites?trip_id=${tripId}`, {
             method: 'DELETE'
         }).then(response => {
             if (response.ok) {
@@ -195,7 +195,7 @@ function toggleHeart(tripId) {
         });
         heartDiv.innerHTML = emptyHeart;
     } else {
-        fetch('http://localhost:8888/favorites', {
+        fetch('http://localhost:8888/api/favorites', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

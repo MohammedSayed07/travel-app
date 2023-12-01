@@ -3,9 +3,8 @@
 namespace app\controllers;
 
 use app\core\Session;
-use app\core\Validator;
-use app\database\UsersDatabase;
 use app\http\FormValidator;
+use app\models\User;
 
 class UserController
 {
@@ -31,7 +30,9 @@ class UserController
     {
         $email = $_POST['email'];
         $password = $_POST['password'];
+
         $form = new FormValidator();
+
         if (! $form->validate($email, $password)) {
             Session::flash('old', [
                 'email' => $email
@@ -40,7 +41,7 @@ class UserController
             redirect('register');
         }
 
-        $user = UsersDatabase::find($email);
+        $user = User::find($email);
 
         if ($user) {
             $form->error('duplicateEmail', 'An Email is already used');
@@ -48,11 +49,13 @@ class UserController
             redirect('register');
         }
 
-        UsersDatabase::store($email, $password);
+        User::store($email, $password);
+
+        $user = User::factory(User::find($email));
 
         Session::put('user', [
-            'user_id' => $user['user_id'],
-            'email' => $email
+            'user_id' => $user->getId(),
+            'email' => $user->getEmail()
         ]);
 
         redirect();
@@ -73,9 +76,8 @@ class UserController
             redirect('login');
         }
 
-        $user = UsersDatabase::find($email);
-
-        if (!$user || !password_verify($password, $user['password'])) {
+        $user = User::find($email);
+        if (!$user || !password_verify($password, $user['user_password'])) {
             $form->error('noAccount', '* No matching account found for that email or password.');
             Session::flash('old', [
                 'email' => $email
@@ -85,7 +87,7 @@ class UserController
         }
         Session::put('user', [
             'user_id' => $user['user_id'],
-            'email' => $user['email']
+            'email' => $user['user_email']
         ]);
         redirect();
     }
