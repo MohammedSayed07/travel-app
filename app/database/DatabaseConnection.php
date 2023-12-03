@@ -26,7 +26,6 @@ class DatabaseConnection
             ErrorHandler::handleErrors(500);
             Throw $exception;
         }
-
     }
 
     public static function execute(string $query, array $params = []): false|PDOStatement

@@ -16,21 +16,9 @@ class TripsDatabase
         $currentDate = new DateTime();
         $currentDate->add(new DateInterval('P8D'));
         $formattedCurrentDate = $currentDate->format('Y-m-d');
-        $query = "SELECT trips.trip_id,
-                    trip_title,
-                    trip_details,
-                    trip_location,
-                    trip_price,
-                    no_of_available_trips,
-                    no_of_reserved_trips,
-                    trip_start_date,
-                    trip_end_date
+        $query = "SELECT trips.*
                     ,
-                    (
-                        SELECT GROUP_CONCAT(images.image SEPARATOR ',')
-                        FROM images
-                        WHERE images.trip_id = trips.trip_id
-                    ) AS images
+                    GROUP_CONCAT(images.image SEPARATOR ',') AS images
                     FROM trips
                     LEFT JOIN images ON trips.trip_id = images.trip_id
                     WHERE trips.trip_end_date >= '{$formattedCurrentDate}'";
